@@ -16,14 +16,14 @@ public class ControlGastosEstructurado {
 
         while (opcion != 7) {
             System.out.println("\n=== SISTEMA DE CONTROL DE GASTOS (PARADIGMA ESTRUCTURADO) ===");
-            System.out.println("1. Registrar gasto");
-            System.out.println("2. Mostrar listado de gastos");
-            System.out.println("3. Calcular gasto total acumulado");
-            System.out.println("4. Mostrar el gasto de mayor valor");
-            System.out.println("5. Mostrar gastos mayores a un monto específico");
-            System.out.println("6. Buscar gasto por concepto");
+            System.out.println("1. Registre gasto");
+            System.out.println("2. Muestre listado de gastos");
+            System.out.println("3. Calcule gasto total acumulado");
+            System.out.println("4. Muestre el gasto de mayor valor");
+            System.out.println("5. Muestre gastos mayores a un monto específico");
+            System.out.println("6. Busque gasto por concepto");
             System.out.println("7. Salir");
-            System.out.print("Seleccione una opción: ");
+            System.out.print("Seleccione una de tantas: ");
 
             opcion = Integer.parseInt(scanner.nextLine());
 
@@ -37,17 +37,17 @@ public class ControlGastosEstructurado {
             } else if (opcion == 4) {
                 mostrarMayorGasto(conceptos, montos, categorias);
             } else if (opcion == 5) {
-                System.out.print("Ingrese el monto mínimo (umbral $) a filtrar: ");
+                System.out.print("Ingrese el monto mínimo ($) a filtrar: ");
                 double umbral = Double.parseDouble(scanner.nextLine());
                 filtrarPorMonto(conceptos, montos, categorias, umbral);
             } else if (opcion == 6) {
-                System.out.print("Ingrese palabra clave o concepto a buscar: ");
+                System.out.print("coloque palabra clave o concepto a buscar: ");
                 String palabraClave = scanner.nextLine();
                 buscarPorConcepto(conceptos, montos, categorias, palabraClave);
             } else if (opcion == 7) {
                 System.out.println("Saliendo del sistema...");
             } else {
-                System.out.println("Opción no válida. Intente de nuevo.");
+                System.out.println("que fué, asi no es. Intente de nuevo.");
             }
         }
     }
@@ -87,8 +87,36 @@ public class ControlGastosEstructurado {
         }
     }
 
-    public static double calcularTotal(ArrayList<Double> montos) { return 0; }
-    public static void mostrarMayorGasto(ArrayList<String> conceptos, ArrayList<Double> montos, ArrayList<String> categorias) {}
+    public static double calcularTotal(ArrayList<Double> montos) {
+        double sumaTotal = 0; // esto acumula el total .. que luego se me olvida jaja salud
+        for (int i = 0; i < montos.size(); i++) {
+            sumaTotal = sumaTotal + montos.get(i);
+        }
+        return sumaTotal;
+    }
+
+    public static void mostrarMayorGasto(ArrayList<String> conceptos, ArrayList<Double> montos, ArrayList<String> categorias) {
+        if (montos.isEmpty()) {
+            System.out.println("No hubo gastos registrados para evaluar.");
+            return;
+        }
+
+        int indiceMayor = 0;
+        double montoMaximo = montos.get(0);
+
+        for (int i = 1; i < montos.size(); i++) {
+            if (montos.get(i) > montoMaximo) {
+                montoMaximo = montos.get(i);
+                indiceMayor = i;
+            }
+        }
+
+        System.out.println("\n--- GASTO DE MAYOR VALOR ---");
+        System.out.println("Concepto: " + conceptos.get(indiceMayor)
+                + " | Monto: $" + montos.get(indiceMayor)
+                + " | Categoría: " + categorias.get(indiceMayor));
+    }
+
     public static void filtrarPorMonto(ArrayList<String> conceptos, ArrayList<Double> montos, ArrayList<String> categorias, double umbral) {}
     public static void buscarPorConcepto(ArrayList<String> conceptos, ArrayList<Double> montos, ArrayList<String> categorias, String palabraClave) {}
 }
