@@ -51,7 +51,7 @@ public class ControlGastosEstructurado {
             }
         }
     }
-
+    // 1. acá Registrar gasto
     public static void registrarGasto(ArrayList<String> conceptos, ArrayList<Double> montos, ArrayList<String> categorias) {
         System.out.print("Ingrese el concepto (descripción): ");
         String concepto = scanner.nextLine();
@@ -73,7 +73,7 @@ public class ControlGastosEstructurado {
 
         System.out.println("¡Gasto registrado exitosamente!");
     }
-
+    // 2. con esto se muestra listado de gastos
     public static void mostrarGastos(ArrayList<String> conceptos, ArrayList<Double> montos, ArrayList<String> categorias) {
         if (conceptos.isEmpty()) {
             System.out.println("No hay gastos registrados aún.");
@@ -86,7 +86,7 @@ public class ControlGastosEstructurado {
             }
         }
     }
-
+    // 3.Calcula y retorna el gasto total acum
     public static double calcularTotal(ArrayList<Double> montos) {
         double sumaTotal = 0; // esto acumula el total .. que luego se me olvida jaja salud
         for (int i = 0; i < montos.size(); i++) {
@@ -94,7 +94,7 @@ public class ControlGastosEstructurado {
         }
         return sumaTotal;
     }
-
+    // 4. Identificar y desplegar el gasto de mayor valor
     public static void mostrarMayorGasto(ArrayList<String> conceptos, ArrayList<Double> montos, ArrayList<String> categorias) {
         if (montos.isEmpty()) {
             System.out.println("No hubo gastos registrados para evaluar.");
@@ -117,6 +117,42 @@ public class ControlGastosEstructurado {
                 + " | Categoría: " + categorias.get(indiceMayor));
     }
 
-    public static void filtrarPorMonto(ArrayList<String> conceptos, ArrayList<Double> montos, ArrayList<String> categorias, double umbral) {}
-    public static void buscarPorConcepto(ArrayList<String> conceptos, ArrayList<Double> montos, ArrayList<String> categorias, String palabraClave) {}
+    // 5.Filtra y lista gastos que supera un umbral específico
+    public static void filtrarPorMonto(ArrayList<String> conceptos, ArrayList<Double> montos, ArrayList<String> categorias, double umbral) {
+        boolean encontrados = false;
+        System.out.println("\n--- GASTOS MAYORES A $" + umbral + " ---");
+
+        for (int i = 0; i < montos.size(); i++) {
+            if (montos.get(i) > umbral) {
+                System.out.println("- Concepto: " + conceptos.get(i)
+                        + " | Monto: $" + montos.get(i)
+                        + " | Categoría: " + categorias.get(i));
+                encontrados = true;
+            }
+        }
+
+        if (!encontrados) {
+            System.out.println("No se encontraron gastos que superen los $" + umbral);
+        }
+    }
+
+    // Buscar gasto por coincidencia de subcadena en el concepto
+    public static void buscarPorConcepto(ArrayList<String> conceptos, ArrayList<Double> montos, ArrayList<String> categorias, String palabraClave) {
+        boolean encontrados = false;
+        String busquedaMinuscula = palabraClave.toLowerCase();
+        System.out.println("\n--- RESULTADOS DE BÚSQUEDA PARA: '" + palabraClave + "' ---");
+
+        for (int i = 0; i < conceptos.size(); i++) {
+            if (conceptos.get(i).toLowerCase().contains(busquedaMinuscula)) {
+                System.out.println("- Concepto: " + conceptos.get(i)
+                        + " | Monto: $" + montos.get(i)
+                        + " | Categoría: " + categorias.get(i));
+                encontrados = true;
+            }
+        }
+
+        if (!encontrados) {
+            System.out.println("No se encontraron coincidencias para: " + palabraClave);
+        }
+    }
 }
