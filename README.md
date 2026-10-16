@@ -20,3 +20,4 @@ Enfoque: Control de flujo secuencial y modular mediante funciones explícitas y 
 4. Mostrar el gasto de mayor valor.
 5. Mostrar gastos mayores a un monto ingresado por el usuario.
 6. Buscar gasto por concepto (búsqueda por subcadena).
+
