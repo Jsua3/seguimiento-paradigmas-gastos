@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class paradigmaeventos extends JFrame {
+public class ParadigmaEventos extends JFrame {
     private final JTextField campoConcepto = new JTextField();
     private final JTextField campoMonto = new JTextField();
     private final JComboBox<String> campoCategoria = new JComboBox<>(new String[]{
@@ -27,7 +27,7 @@ public class paradigmaeventos extends JFrame {
     private final JTextArea areaResultados = new JTextArea();
     private final List<Gasto> gastos = new ArrayList<>();
 
-    public paradigmaeventos() {
+    public ParadigmaEventos() {
         setTitle("Sistema de Control de Gastos Personales");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(700, 500);
@@ -187,7 +187,7 @@ public class paradigmaeventos extends JFrame {
 
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {
-            paradigmaeventos ventana = new paradigmaeventos();
+            ParadigmaEventos ventana = new ParadigmaEventos();
             ventana.setVisible(true);
         });
     }
