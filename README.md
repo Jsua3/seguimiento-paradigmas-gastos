@@ -39,6 +39,9 @@ Sistema de control de gastos personales con 6 funcionalidades:
 - `feature/paradigma-*`: una rama por paradigma, integrada a `develop` mediante Pull Request con aprobación de otro integrante.
 - Commits con formato `feat:`, `fix:`, `docs:`, `chore:`.
 
+## Cómo ejecutar
+Requisito: JDK 17 o superior. Los comandos se ejecutan **desde la raíz del repositorio** y dejan los archivos compilados en la carpeta `out/`, que está ignorada por Git. Las instrucciones específicas de cada versión están en su sección.
+
 ---
 
 ## Paradigma Estructurado
@@ -90,13 +93,20 @@ Interfaz gráfica con Java Swing cuyo flujo lo dirigen los eventos del usuario.
 ### Elementos del paradigma aplicados
 - Ventana `ParadigmaEventos` (`JFrame`) con botones y campos de entrada.
 - Cada botón tiene un `ActionListener` (expresión lambda) que llama a su método controlador:
-    - **Registrar Gasto** → `registrarGasto()`
-    - **Calcular Total** → `calcularTotal()`
-    - **Filtrar por Monto Mínimo** → `filtrarPorMontoMinimo()`
-    - **Buscar por Concepto** → `buscarPorConcepto()` (también al pulsar Enter en el campo de búsqueda)
-    - **Mostrar Todos** y **Gasto Mayor**
+  - **Registrar Gasto** → `registrarGasto()`
+  - **Calcular Total** → `calcularTotal()`
+  - **Filtrar por Monto Mínimo** → `filtrarPorMontoMinimo()`
+  - **Buscar por Concepto** → `buscarPorConcepto()` (también al pulsar Enter en el campo de búsqueda)
+  - **Mostrar Todos** y **Gasto Mayor**
 - Los gastos se guardan en una lista en memoria, por lo que se pierden al cerrar la aplicación.
 
+### Cómo ejecutarlo
+```bash
+javac -d out eventos/ParadigmaEventos.java
+java -cp out com.gastos.eventos.ParadigmaEventos
+```
+
+---
 
 ## Paradigma Declarativo
 **Rama:** `feature/paradigma-declarativo` · **Carpeta:** `declarativo/`
@@ -105,12 +115,12 @@ Versión que expresa *qué* datos se quieren y delega a MySQL el *cómo* procesa
 
 ### Elementos del paradigma aplicados
 - Consultas SQL parametrizadas (`PreparedStatement`) en `ConsultasGastos`:
-    - Total: `SUM(monto)`
-    - Gasto mayor: subconsulta con `MAX(monto)`
-    - Filtro por monto: `WHERE monto > ?`
-    - Búsqueda por concepto: `LIKE '%texto%'`
+  - Total: `SUM(monto)`
+  - Gasto mayor: subconsulta con `MAX(monto)`
+  - Filtro por monto: `WHERE monto > ?`
+  - Búsqueda por concepto: `LIKE '%texto%'`
 - `ConexionBD` crea la base de datos `control_gastos` y la tabla `gastos` si no existen. El esquema también está en `schema.sql`.
-
+- Dependencias en `lib/`: `mysql-connector-j-8.4.0.jar` y `protobuf-java-3.25.1.jar`.
 
 ### Configuración de credenciales
 Requiere MySQL o MariaDB en ejecución. La conexión se configura con variables de entorno, sin escribir contraseñas en el código:
@@ -125,16 +135,23 @@ Requiere MySQL o MariaDB en ejecución. La conexión se configura con variables 
 
 Si MySQL no tiene contraseña (Laragon/XAMPP), no hace falta configurar nada. En IntelliJ las variables se definen en *Modify Run Configuration → Modify options → Environment variables*, por ejemplo `MYSQL_USER=root;MYSQL_PASSWORD=tu_clave`.
 
-
+### Cómo ejecutarlo
+En Windows:
+```bash
 javac -d out -cp "lib/*" declarativo/*.java
 java -cp "out;lib/*" declarativo.Main
+```
+En Linux o macOS, cambia el `;` por `:` en el segundo comando.
+
+---
 
 ## Paradigma Funcional
 **Rama:** `feature/paradigma-funcional` · **Carpeta:** `funcional/`
 
+Versión basada en funciones puras, inmutabilidad y funciones de orden superior.
 
 ### Elementos del paradigma aplicados
-- **Inmutabilidad**: `registrarGasto` no modifica la lista, construye una nueva; `listarGastos` devuelve `List.copyOf` y los filtros terminan en `toList()` (lista no modificable).
+- **Inmutabilidad**: `registrarGasto` no modifica la lista recibida, construye una nueva; `listarGastos` devuelve `List.copyOf` y los filtros terminan en `toList()` (lista no modificable).
 - **Funciones puras** en la clase `FuncionesGastos` (`final`, sin estado): reciben la lista por parámetro y devuelven un resultado.
 - **`map`**: extrae los montos con `Gasto::monto`.
 - **`reduce`**: suma los montos con `BigDecimal::add` partiendo de `BigDecimal.ZERO`, sin ciclos ni acumuladores mutables.
