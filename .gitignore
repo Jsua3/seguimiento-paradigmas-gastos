@@ -1,0 +1,22 @@
+﻿# Archivos temporales
+*.log
+*.tmp
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos compilados de Java
+*.class
+*.jar
+*.war
+out/
+target/
+build/
+
+# Configuracion local de IntelliJ IDEA y otros IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
