@@ -20,4 +20,11 @@ Enfoque: Control de flujo secuencial y modular mediante funciones explícitas y 
 4. Mostrar el gasto de mayor valor.
 5. Mostrar gastos mayores a un monto ingresado por el usuario.
 6. Buscar gasto por concepto (búsqueda por subcadena).
+### Configuración de credenciales
+El programa lee las credenciales de MySQL desde variables de entorno.
+En IntelliJ: clic en el ▶ junto a `main` → **Modify Run Configuration** →
+**Modify options** → **Environment variables** y agregar:
 
+MYSQL_USER=root;MYSQL_PASSWORD= contraseña
+
+Si MySQL no tiene contraseña (Laragon/XAMPP), no es necesario configurar nada.
