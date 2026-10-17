@@ -1,3 +1,35 @@
+# Seguimiento: Paradigmas de Programación – Control de Gastos Personales
+
+Mismo problema resuelto en **5 paradigmas** de programación con **Java**, trabajando en equipo con Git y GitHub. Actividad de seguimiento de Ingeniería de Software II, CUE.
+
+## Problema
+Sistema de control de gastos personales con 6 funcionalidades: registrar gasto, listar gastos, calcular total, mostrar el gasto mayor, filtrar por monto mínimo y buscar por concepto (subcadena).
+
+## Equipo y paradigmas
+| Integrante | Paradigma | Carpeta | Rama |
+|---|---|---|---|
+| Juan José Sua Gómez | Estructurado | `estructurado/` | `feature/paradigma-estructurado` |
+| Marlon Sarria | Orientado a Objetos | `poo/` | `feature/paradigma-poo` |
+| Steveen Cardona | Orientado a Eventos | `eventos/` | `feature/paradigma-eventos` |
+| Emerson Ángel | Declarativo | `declarativo/` | `feature/paradigma-declarativo` |
+| Alejandro Palacios | Funcional | `funcional/` | `feature/paradigma-funcional` |
+
+## Estructura del repositorio
+(una carpeta por paradigma en la raíz: estructurado/, poo/, eventos/, declarativo/, funcional/)
+
+## Flujo de trabajo (Git)
+- `master`: versión estable final (tag `v1.0`).
+- `develop`: integración.
+- `feature/paradigma-*`: una rama por paradigma, integrada a `develop` mediante Pull Request con aprobación de otro integrante.
+- Commits con formato `feat:`, `fix:`, `docs:`, `chore:`.
+
+## Cómo ejecutar cada versión
+Las instrucciones de cada paradigma están en su sección, más abajo.
+
+---
+
+
+
 # paradigmas
 
 **creado por:** Juan José Sua Gómez · **Rama:** `feature/paradigma-estructurado` · **Carpeta:** `estructurado/`
